@@ -8,4 +8,12 @@ Calculates lumens form Watts
 
 ## voltdiv
 
-voltage divider 
+voltage divider calculator
+
+## genQR
+
+QR code generator
+
+## lsusbtty
+
+Tool that just lists all the USB serial adapter connected to your computer
