@@ -7,19 +7,16 @@
 package main
 
 import (
+	"bufio"
 	"log"
 	"os"
-	"bufio"
 
-	"go.bug.st/serial.v1/enumerator"
 	"github.com/fatih/color"
-
-	"github.com/morgulbrut/usbIds"
+	"github.com/morgulbrut/smoltools/lsusbtty/usbID"
+	"go.bug.st/serial.v1/enumerator"
 )
 
-
-
-func main() {	
+func main() {
 	color.Cyan("Found USB-Serial converter")
 	ports, err := enumerator.GetDetailedPortsList()
 	if err != nil {
@@ -33,9 +30,11 @@ func main() {
 		if port.IsUSB {
 			color.Green("Connected adapter: %s", port.Name)
 			color.White("   USB ID: %s:%s SN: %s", port.VID, port.PID, port.SerialNumber)
-			color.White(usbIds.GetId(port.VID,port.PID))
+			//	color.White(usbId.GetId(port.VID, port.PID))
+			usbID.GetID(port.VID, port.PID)
+
 		} else {
-			color.Yellow("Not connected adapter: %s",port.Name)
+			color.Yellow("Not connected adapter: %s", port.Name)
 		}
 	}
 	color.Cyan("Press any key to close")
