@@ -11,32 +11,30 @@ import (
 	"log"
 	"os"
 
-	"github.com/fatih/color"
+	"github.com/morgulbrut/color256"
 	"github.com/morgulbrut/smoltools/lsusbtty/usbID"
 	"go.bug.st/serial.v1/enumerator"
 )
 
 func main() {
-	color.Cyan("Found USB-Serial converter")
+	color256.PrintHiCyan("Found USB-Serial converter")
 	ports, err := enumerator.GetDetailedPortsList()
 	if err != nil {
 		log.Fatal(err)
 	}
 	if len(ports) == 0 {
-		color.Red("No serial ports found!")
+		color256.PrintRed("No serial ports found!")
 		return
 	}
 	for _, port := range ports {
 		if port.IsUSB {
-			color.Green("Connected adapter: %s", port.Name)
-			color.White("   USB ID: %s:%s SN: %s", port.VID, port.PID, port.SerialNumber)
-			//	color.White(usbId.GetId(port.VID, port.PID))
-			usbID.GetID(port.VID, port.PID)
+			color256.PrintGreen("Connected adapter: %s", port.Name)
+			color256.PrintWhite("   USB ID: %s:%s SN: %s", port.VID, port.PID, port.SerialNumber)
 
 		} else {
-			color.Yellow("Not connected adapter: %s", port.Name)
+			color256.PrintYellow("Not connected adapter: %s", port.Name)
 		}
 	}
-	color.Cyan("Press any key to close")
+	color256.PrintCyan("Press any key to close")
 	bufio.NewReader(os.Stdin).ReadBytes('\n')
 }
