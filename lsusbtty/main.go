@@ -17,6 +17,11 @@ import (
 )
 
 func main() {
+	idl, err := usbID.DownloadList("http://www.linux-usb.org/usb.ids")
+	if err != nil {
+		color256.PrintOrange("Error while downloading the id list")
+	}
+
 	color256.PrintHiCyan("Found USB-Serial converter")
 	ports, err := enumerator.GetDetailedPortsList()
 	if err != nil {
@@ -30,6 +35,14 @@ func main() {
 		if port.IsUSB {
 			color256.PrintGreen("Connected adapter: %s", port.Name)
 			color256.PrintWhite("   USB ID: %s:%s SN: %s", port.VID, port.PID, port.SerialNumber)
+			if idl != "" {
+				dev := usbID.GetID(port.VID, port.PID, idl)
+				for _, d := range dev {
+					if d != "" {
+						color256.PrintWhite("     " + d)
+					}
+				}
+			}
 
 		} else {
 			color256.PrintYellow("Not connected adapter: %s", port.Name)
