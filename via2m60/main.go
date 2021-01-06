@@ -7,13 +7,13 @@ import (
 
 func logo() {
 	color256.Init()
-	color256.PrintRandom("__________           .___ __________.__  .__        __            ")
-	color256.PrintRandom("\\______   \\____    __| _/ \\______   \\  | |__| ____ |  | ______    ")
-	color256.PrintRandom(" |    |  _|__  \\  / __ |   |    |  _/  | |  |/    \\|  |/ |__  \\   ")
-	color256.PrintRandom(" |    |   \\/ __ \\/ /_/ |   |    |   \\  |_|  |   |  \\    < / __ \\_ ")
-	color256.PrintRandom(" |______  (____  |____ |   |______  /____/__|___|  /__|_ (____  / ")
-	color256.PrintRandom("        \\/     \\/     \\/          \\/             \\/     \\/    \\/  ")
-	color256.PrintRandom("  Turn your CircuitPython board into a USB RubberDucky")
+	color256.PrintRandom("██╗   ██╗██╗ █████╗ ██████╗ ███╗   ███╗ ██████╗  ██████╗ ")
+	color256.PrintRandom("██║   ██║██║██╔══██╗╚════██╗████╗ ████║██╔════╝ ██╔═████╗")
+	color256.PrintRandom("██║   ██║██║███████║ █████╔╝██╔████╔██║███████╗ ██║██╔██║")
+	color256.PrintRandom("╚██╗ ██╔╝██║██╔══██║██╔═══╝ ██║╚██╔╝██║██╔═══██╗████╔╝██║")
+	color256.PrintRandom(" ╚████╔╝ ██║██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝╚██████╔╝")
+	color256.PrintRandom("  ╚═══╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ")
+	//color256.PrintRandom("  Turn your CircuitPython board into a USB RubberDucky")
 }
 
 func main() {
