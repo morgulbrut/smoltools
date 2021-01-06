@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/morgulbrut/color256"
 	"github.com/morgulbrut/smoltools/via2m60/converter"
 )
@@ -17,8 +19,11 @@ func logo() {
 }
 
 func main() {
+	logo()
 	config := converter.ProcessJSON("dz60_via.json")
 	converter.PrintConfig(config)
+	km := converter.ProcessKeymap("keycodes.toml")
+	fmt.Println(km)
 }
 
 // func main() {
