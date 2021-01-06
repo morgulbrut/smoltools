@@ -2,8 +2,6 @@ package converter
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"os"
 
 	"github.com/morgulbrut/color256"
 )
@@ -25,15 +23,7 @@ func PrintConfig(config ViaJSON) {
 func ProcessJSON(filename string) ViaJSON {
 	var config ViaJSON
 
-	file, err := os.Open(filename)
-	if err != nil {
-		color256.PrintHiRed(err.Error())
-	}
-	defer file.Close()
-	val, err := ioutil.ReadAll(file)
-	if err != nil {
-		color256.PrintHiRed(err.Error())
-	}
+	val := readfile(filename)
 	json.Unmarshal(val, &config)
 
 	return config
