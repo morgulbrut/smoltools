@@ -19,3 +19,19 @@ func ProcessKeymap(filename string) map[string]interface{} {
 
 	return result
 }
+
+func GenerateLayers(config ViaJSON, km map[string]interface{}) {
+	// var lays string
+	for _, l := range config.Layers {
+		for i, k := range l {
+			if km[k] != "NO" {
+				fmt.Printf("%s,", km[k])
+			}
+			// TODO:
+			if i == 14 || i == 29 || i == 43 || i == 58 {
+				fmt.Println()
+			}
+		}
+		color256.PrintHiMagenta("\n--------------------------------------")
+	}
+}
