@@ -20,7 +20,7 @@ func PrintConfig(config ViaJSON) {
 	color256.PrintHiCyan("Layers:    %d", len(config.Layers))
 }
 
-func ProcessJSON(filename string) ViaJSON {
+func ReadJSON(filename string) ViaJSON {
 	var config ViaJSON
 
 	val := readfile(filename)

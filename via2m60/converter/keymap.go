@@ -1,6 +1,8 @@
 package converter
 
 import (
+	"fmt"
+
 	"github.com/morgulbrut/color256"
 	"github.com/morgulbrut/toml"
 )
@@ -11,7 +13,7 @@ func PrintKeymap(km map[string]interface{}) {
 	}
 }
 
-func ProcessKeymap(filename string) map[string]interface{} {
+func ReadKeymap(filename string) map[string]interface{} {
 	var result map[string]interface{}
 	// Unmarshal or Decode the JSON to the interface.
 	val := readfile(filename)
