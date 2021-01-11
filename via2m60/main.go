@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/morgulbrut/color256"
 	"github.com/morgulbrut/smoltools/via2m60/converter"
 )
@@ -21,7 +23,8 @@ func main() {
 	config := converter.ReadJSON("dz60_via.json")
 	converter.PrintConfig(config)
 	km := converter.ReadKeymap("keycodes.toml")
-	converter.GenerateLayers(config, km)
+	layers := converter.GenerateLayers(config, km)
+	fmt.Println(layers)
 }
 
 // func main() {
