@@ -1,39 +1,89 @@
-# Mini SAM template
-
+from PYKB import *
 import time
-import board
 
-# Imports used to be a keyboard
-from adafruit_hid.keyboard import Keyboard
-from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
-from adafruit_hid.keycode import Keycode
-
-# Initialize the keyboard stuff
-time.sleep(1)  # Sleep for a bit to avoid a race condition on some systems
 keyboard = Keyboard()
-keyboard_layout = KeyboardLayoutUS(keyboard)  # We're in the US :)
-
-# Imports and initialization for my board and usecase
-import adafruit_dotstar
-import digitalio
-
-key_pin = digitalio.DigitalInOut(board.BUTTON)
-key_pin.direction = digitalio.Direction.INPUT
-key_pin.pull = digitalio.Pull.UP
-
-dotstar = adafruit_dotstar.DotStar(board.APA102_SCK, board.APA102_MOSI, 1)
-dotstar[0] = (0,120,120)
-
-# your payloads go here
-{{ . }}
 
 
-# My example usecase
-while True:
-    while not key_pin.value:
-        pass  # Wait for it to be ungrounded!
+keyboard.keymap = (
+    {{.keymap}}
+)
 
-    dotstar[0] = (120,0,0) 
-    payload_0()
-    time.sleep(0.5)
-    dotstar[0] = (0,120,0)
+
+def set_keyboard_default(dev):
+    set_color(dev, 255, 64, 0)
+    set_wasd(dev, 255, 255, 0)
+    set_special_k(dev, 255, 0, 255)
+
+
+def set_color(dev, r, g, b):
+    for i in range(63):
+        dev.backlight.pixel(i, r, g, b)
+    dev.backlight.update()
+
+# ESC(0)    1(1)   2(2)   3(3)   4(4)   5(5)   6(6)   7(7)   8(8)   9(9)   0(10)  -(11)  =(12)  BACKSPACE(13)
+# TAB(27)   Q(26)  W(25)  E(24)  R(23)  T(22)  Y(21)  U(20)  I(19)  O(18)  P(17)  [(16)  ](15)   \(14)
+# CAPS(28)  A(29)  S(30)  D(31)  F(32)  G(33)  H(34)  J(35)  K(36)  L(37)  ;(38)  "(39)      ENTER(40)
+# LSHIFT(52) Z(51)  X(50)  C(49)  V(48)  B(47)  N(46)  M(45)  ,(44)  .(43)  /(42)            RSHIFT(41)
+# LCTRL(53)  LGUI(54)  LALT(55)               SPACE(56)          RALT(57)  MENU(58)  Fn(59)  RCTRL(60)
+
+
+def set_wasd(dev, r, g, b):
+    for i in (25, 29, 30, 31):
+        dev.backlight.pixel(i, r, g, b)
+    dev.backlight.update()
+
+
+def set_special_k(dev, r, g, b):
+    for i in (0, 13, 27, 28, 40, 52, 41, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62):
+        dev.backlight.pixel(i, r, g, b)
+    dev.backlight.update()
+
+
+def macro_handler(dev, n, is_down):
+    if is_down:
+        pass
+        # dev.send_text('You pressed macro #{}\n'.format(n))
+    else:
+        if n == 1:
+            set_color(dev, 255, 0, 0)
+            set_wasd(dev, 0, 255, 0)
+        elif n == 2:
+            set_color(dev, 0, 255, 0)
+            set_wasd(dev, 255, 0, 0)
+        elif n == 3:
+            set_color(dev, 0, 0, 255)
+            set_wasd(dev, 255, 255, 0)
+        elif n == 4:
+            set_color(dev, 0, 0, 0)
+        elif n == 5:
+            set_keyboard_default(dev)
+        elif n == 6:
+            dev.send_text('JUPITER-corn-DARK-ring')
+            dev.send(ENTER)
+        else:
+            dev.send_text('You released macro #{}\n'.format(n))
+
+
+def pairs_handler(dev, n):
+    if n == 0:
+        dev.send(GUI, ENTER)
+        time.sleep(1)
+        dev.send_text("setxkbmap -layout us -variant intl")
+        dev.send(ENTER)
+        dev.send_text("exit")
+        dev.send(ENTER)
+    else:
+        dev.send_text('You just triggered pair keys #{}\n'.format(n))
+
+
+keyboard.macro_handler = macro_handler
+keyboard.pairs_handler = pairs_handler
+
+# Pairs: J & K, U & I
+keyboard.pairs = [{37, 36}, {20, 19}]
+
+keyboard.verbose = False
+
+set_keyboard_default(keyboard)
+
+keyboard.run()
