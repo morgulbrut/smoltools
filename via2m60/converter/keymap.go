@@ -31,34 +31,28 @@ func parseTabs(key string) (tapped string, hold string) {
 	return t, h
 }
 
-func GenerateLayers(config ViaJSON, km map[string]interface{}) []string {
-	var lays []string
+func GenerateLayers(config ViaJSON, km map[string]interface{}) [][]string {
+	var lays [][]string
 	for _, l := range config.Layers {
-		var lay strings.Builder
-		for j, k := range l {
+		var lay []string
+		for _, k := range l {
 			var key string
 			if strings.HasPrefix(k, "MT") {
 				t, h := parseTabs(k)
-				key = fmt.Sprintf("MODS_TAP(MODS(%s,%s)", km[t], km[h])
+				key = fmt.Sprintf("MODS_TAP(MODS(%s),%s)", km[t], km[h])
 			} else if strings.HasPrefix(k, "LT") {
 				t, h := parseTabs(k)
-				key = fmt.Sprintf("LAYER_TAB(%s,%s)", t, km[h])
+				key = fmt.Sprintf("LAYER_TAP(%s,%s)", t, km[h])
 			} else if km[k] != "NO" {
 				if km[k] == nil {
-					key = "NO,"
+					key = "NO"
 				} else {
-					key = fmt.Sprintf("%s,", km[k])
+					key = fmt.Sprintf("%s", km[k])
 				}
 			}
-
-			lay.WriteString(key)
-
-			if j == 14 || j == 29 || j == 43 || j == 58 {
-				lay.WriteString("\n")
-
-			}
+			lay = append(lay, key)
 		}
-		lays = append(lays, lay.String())
+		lays = append(lays, lay)
 	}
 	return lays
 }

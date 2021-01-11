@@ -24,7 +24,7 @@ func main() {
 	converter.PrintConfig(config)
 	km := converter.ReadKeymap("keycodes.toml")
 	layers := converter.GenerateLayers(config, km)
-	fmt.Println(layers)
+	fmt.Println(converter.FmtLayers(layers))
 }
 
 // func main() {
