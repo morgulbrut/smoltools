@@ -2,7 +2,11 @@ package converter
 
 import (
 	"fmt"
+	"os"
 	"strings"
+	"text/template"
+
+	"github.com/morgulbrut/color256"
 )
 
 func FmtLayers(lays [][]string) string {
@@ -25,4 +29,18 @@ func FmtLayers(lays [][]string) string {
 	}
 	ret.WriteString(")\n")
 	return ret.String()
+}
+
+func executeTemplate(s, temp string) {
+	f, err := os.Create("code_via.py")
+	if err != nil {
+		color256.PrintHiRed("ERROR: template parsing fail")
+		os.Exit(1)
+	}
+	t, err := template.ParseFiles(temp)
+	if err != nil {
+		color256.PrintHiRed("ERROR: template parsing fail")
+		os.Exit(1)
+	}
+	t.Execute(f, s)
 }

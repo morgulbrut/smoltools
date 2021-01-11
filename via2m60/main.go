@@ -111,18 +111,3 @@ func main() {
 // 		return "    # UNDEFINED: " + s
 // 	}
 // }
-
-// func executeTemplate(s, temp string) {
-// 	color256.PrintHiYellow(s)
-// 	f, err := os.Create("code_via.py")
-// 	if err != nil {
-// 		color256.PrintHiRed("ERROR: template parsing fail")
-// 		os.Exit(1)
-// 	}
-// 	t, err := template.ParseFiles(temp)
-// 	if err != nil {
-// 		color256.PrintHiRed("ERROR: template parsing fail")
-// 		os.Exit(1)
-// 	}
-// 	t.Execute(f, s)
-// }
