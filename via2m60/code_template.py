@@ -24,8 +24,6 @@ def set_color(dev, r, g, b):
     dev.backlight.update()
 
 
-
-
 def set_wasd(dev, r, g, b):
     for i in (25, 29, 30, 31):
         dev.backlight.pixel(i, r, g, b)
@@ -43,24 +41,35 @@ def macro_handler(dev, n, is_down):
         pass
         # dev.send_text('You pressed macro #{}\n'.format(n))
     else:
-        if n == 1:
+        if n == 0:
+            dev.send_text('basbfdasmn')
+            dev.send(ENTER)
+        elif n == 1:
+            dev.send_text('hunter77')
+            dev.send(ENTER)
+        elif n == 2:
+            dev.send_text('winter2021')
+            dev.send(ENTER)
+        elif n == 14:
+            dev.send(LEFT_ALT, KP0, KP1, KP7, KP6)
+        elif n == 15:
+            dev.send(LEFT_ALT, LEFT_CTRL, DELETE)
+        elif n == 20:
             set_color(dev, 255, 0, 0)
             set_wasd(dev, 0, 255, 0)
-        elif n == 2:
+        elif n == 21:
             set_color(dev, 0, 255, 0)
             set_wasd(dev, 255, 0, 0)
-        elif n == 3:
+        elif n == 22:
             set_color(dev, 0, 0, 255)
             set_wasd(dev, 255, 255, 0)
-        elif n == 4:
+        elif n == 23:
             set_color(dev, 0, 0, 0)
-        elif n == 5:
+        elif n == 24:
             set_keyboard_default(dev)
-        elif n == 6:
-            dev.send_text('JUPITER-corn-DARK-ring')
-            dev.send(ENTER)
+
         else:
-            dev.send_text('You released macro #{}\n'.format(n))
+            pass
 
 
 def pairs_handler(dev, n):
@@ -72,7 +81,10 @@ def pairs_handler(dev, n):
         dev.send_text("exit")
         dev.send(ENTER)
     else:
-        dev.send_text('You just triggered pair keys #{}\n'.format(n))
+        dev.send(GUI, ENTER)
+        time.sleep(1)
+        dev.send_text("spotify")
+        dev.send(ENTER)
 
 
 keyboard.macro_handler = macro_handler
