@@ -24,5 +24,7 @@ func main() {
 	km := converter.ReadKeymap("keycodes.toml")
 	layers := converter.GenerateLayers(config, km)
 	o.Keymap = converter.FmtLayers(layers)
+	macros := converter.GenerateMacros(config)
+	o.Macros = converter.FmtMacros(macros, km)
 	converter.ExecuteTemplate(o, "code_template.py")
 }

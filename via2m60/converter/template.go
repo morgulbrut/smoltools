@@ -23,6 +23,45 @@ func find(slice []int, val int) bool {
 	return false
 }
 
+func FmtMacros(macros [][]string, km map[string]interface{}) string {
+	var ret strings.Builder
+	ret.WriteString("def macro_handler(dev, n, is_down):\n")
+	ret.WriteString("\tif is_down:\n")
+	ret.WriteString("\t\tpass\n")
+	ret.WriteString("\telse:`\n")
+	for i, m := range macros {
+		if i == 0 {
+			ret.WriteString("\t\tif i == 0:\n")
+		} else {
+			ret.WriteString(fmt.Sprintf("\t\telif i == %d:\n", i))
+		}
+		if m == nil {
+			ret.WriteString("\t\t\tpass\n")
+		} else {
+			for _, k := range m {
+				fmt.Printf("%q\n", k)
+				if strings.HasPrefix(k, "KC_") {
+					ret.WriteString(fmt.Sprintf("\t\t\tdev.send("))
+					keys := strings.Split(k, ",")
+					for j, key := range keys {
+						if j < len(keys)-1 {
+							ret.WriteString(fmt.Sprintf("%s, ", km[key]))
+						} else {
+							ret.WriteString(fmt.Sprintf("%s", km[key]))
+						}
+					}
+					ret.WriteString(")\n")
+				} else {
+					if k != "" {
+						ret.WriteString(fmt.Sprintf("\t\t\tdev.send_text(\"%s\")\n", k))
+					}
+				}
+			}
+		}
+	}
+	return ret.String()
+}
+
 func FmtLayers(lays [][]string) string {
 	var ret strings.Builder
 	// TODO:
