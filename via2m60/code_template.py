@@ -36,24 +36,7 @@ def set_special_k(dev, r, g, b):
     dev.backlight.update()
 
 
-def macro_handler(dev, n, is_down):
-    if is_down:
-        pass
-        # dev.send_text('You pressed macro #{}\n'.format(n))
-    else:
-        if n == 0:
-            dev.send_text('basbfdasmn')
-            dev.send(ENTER)
-        elif n == 1:
-            dev.send_text('hunter77')
-            dev.send(ENTER)
-        elif n == 2:
-            dev.send_text('winter2021')
-            dev.send(ENTER)
-        elif n == 14:
-            dev.send(LEFT_ALT, KP0, KP1, KP7, KP6)
-        elif n == 15:
-            dev.send(LEFT_ALT, LEFT_CTRL, DELETE)
+{{.Macros}}
         elif n == 20:
             set_color(dev, 255, 0, 0)
             set_wasd(dev, 0, 255, 0)
