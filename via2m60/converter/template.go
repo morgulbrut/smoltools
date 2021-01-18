@@ -28,18 +28,17 @@ func FmtMacros(macros [][]string, km map[string]interface{}) string {
 	ret.WriteString("def macro_handler(dev, n, is_down):\n")
 	ret.WriteString("\tif is_down:\n")
 	ret.WriteString("\t\tpass\n")
-	ret.WriteString("\telse:`\n")
+	ret.WriteString("\telse:\n")
 	for i, m := range macros {
 		if i == 0 {
-			ret.WriteString("\t\tif i == 0:\n")
+			ret.WriteString("\t\tif n == 0:\n")
 		} else {
-			ret.WriteString(fmt.Sprintf("\t\telif i == %d:\n", i))
+			ret.WriteString(fmt.Sprintf("\t\telif n == %d:\n", i))
 		}
 		if m == nil {
 			ret.WriteString("\t\t\tpass\n")
 		} else {
 			for _, k := range m {
-				fmt.Printf("%q\n", k)
 				if strings.HasPrefix(k, "KC_") {
 					ret.WriteString(fmt.Sprintf("\t\t\tdev.send("))
 					keys := strings.Split(k, ",")
@@ -98,7 +97,7 @@ func FmtLayers(lays [][]string) string {
 }
 
 func ExecuteTemplate(c Output, temp string) {
-	f, err := os.Create("code_via.py")
+	f, err := os.Create("code.py")
 	if err != nil {
 		color256.PrintHiRed("ERROR: template parsing fail")
 		os.Exit(1)
