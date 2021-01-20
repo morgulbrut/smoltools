@@ -25,22 +25,22 @@ func find(slice []int, val int) bool {
 
 func FmtMacros(macros [][]string, km map[string]interface{}) string {
 	var ret strings.Builder
-	ret.WriteString("def macro_handler(dev, n, is_down):\n")
-	ret.WriteString("\tif is_down:\n")
-	ret.WriteString("\t\tpass\n")
-	ret.WriteString("\telse:\n")
+	// ret.WriteString("def macro_handler(dev, n, is_down):\n")
+	// ret.WriteString("    if is_down:\n")
+	// ret.WriteString("        pass\n")
+	// ret.WriteString("    else:\n")
 	for i, m := range macros {
 		if i == 0 {
-			ret.WriteString("\t\tif n == 0:\n")
+			ret.WriteString("        if n == 0:\n")
 		} else {
-			ret.WriteString(fmt.Sprintf("\t\telif n == %d:\n", i))
+			ret.WriteString(fmt.Sprintf("        elif n == %d:\n", i))
 		}
 		if m == nil {
-			ret.WriteString("\t\t\tpass\n")
+			ret.WriteString("            pass\n")
 		} else {
 			for _, k := range m {
 				if strings.HasPrefix(k, "KC_") {
-					ret.WriteString(fmt.Sprintf("\t\t\tdev.send("))
+					ret.WriteString(fmt.Sprintf("            dev.send("))
 					keys := strings.Split(k, ",")
 					for j, key := range keys {
 						if j < len(keys)-1 {
@@ -52,7 +52,7 @@ func FmtMacros(macros [][]string, km map[string]interface{}) string {
 					ret.WriteString(")\n")
 				} else {
 					if k != "" {
-						ret.WriteString(fmt.Sprintf("\t\t\tdev.send_text(\"%s\")\n", k))
+						ret.WriteString(fmt.Sprintf("            dev.send_text(\"%s\")\n", k))
 					}
 				}
 			}

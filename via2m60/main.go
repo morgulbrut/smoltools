@@ -26,5 +26,5 @@ func main() {
 	o.Keymap = converter.FmtLayers(layers)
 	macros := converter.GenerateMacros(config)
 	o.Macros = converter.FmtMacros(macros, km)
-	converter.ExecuteTemplate(o, "code_template.py")
+	converter.ExecuteTemplate(o, "code_template_py.txt")
 }
