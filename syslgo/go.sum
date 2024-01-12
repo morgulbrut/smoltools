@@ -1,0 +1,6 @@
+github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d h1:licZJFw2RwpHMqeKTCYkitsPqHNxTmd4SNR5r94FGM8=
+github.com/acarl005/stripansi v0.0.0-20180116102854-5a71ef0e047d/go.mod h1:asat636LX7Bqt5lYEZ27JNDcqxfjdBQuJ/MM4CN/Lzo=
+github.com/morgulbrut/color256 v0.0.0-20210301135729-129d0bff979e h1:7f7EJOdfy3OrcjUQKh326ptXI3aJyySPF0nimGkgd+0=
+github.com/morgulbrut/color256 v0.0.0-20210301135729-129d0bff979e/go.mod h1:jFygGUuye/6Lif5gSPIm6R3kEqvrNLuoBkFPcbKi1QU=
+gopkg.in/mcuadros/go-syslog.v2 v2.3.0 h1:kcsiS+WsTKyIEPABJBJtoG0KkOS6yzvJ+/eZlhD79kk=
+gopkg.in/mcuadros/go-syslog.v2 v2.3.0/go.mod h1:l5LPIyOOyIdQquNg+oU6Z3524YwrcqEm0aKH+5zpt2U=
