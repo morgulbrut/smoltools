@@ -23,6 +23,26 @@ var LOGLEVEL = map[int]string{
 	8: color256.Cyan("TRACE   :"),
 }
 
+func logo() {
+	logo := `                                                                        
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ 
+┃                                     __ _______ _______                   ┃░
+┃                  .-----.--.--.-----|  |   _   |   _   |                  ┃░
+┃                  |__ --|  |  |__ --|  |.  |___|.  |   |                  ┃░
+┃                  |_____|___  |_____|__|.  |   |.  |   |                  ┃░
+┃                        |_____|        |:  1   |:  1   |                  ┃░
+┃                                       |::.. . |::.. . |                  ┃░
+┃                                       '-------'-------'                  ┃░
+┃                  Simple syslog server in go                              ┃░
+┃                  v 0.1                                                   ┃░
+┃                                                                          ┃░
+┃                                                                          ┃░
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛░
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░`
+
+	fmt.Println(color256.Magenta(logo))
+}
+
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -32,11 +52,13 @@ func check(e error) {
 func output(logParts format.LogParts) string {
 	t := logParts["timestamp"].(time.Time)
 	ts := fmt.Sprintf(t.Format(time.RFC3339))
-	return fmt.Sprintf("%s %s %s", color256.Faint(ts), LOGLEVEL[logParts["severity"].(int)], logParts["content"])
+	hn := color256.BgHiBlue(logParts["client"].(string))
+	return fmt.Sprintf("%s %s %s %s", color256.Faint(ts), hn, LOGLEVEL[logParts["severity"].(int)], logParts["content"])
 }
 
 func main() {
-	fn := "syslog.log"
+	logo()
+	fn := "syslgo.log"
 	f, err := os.OpenFile(fn, os.O_CREATE|os.O_APPEND, 0644)
 	check(err)
 	defer f.Close()
