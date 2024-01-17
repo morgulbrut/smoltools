@@ -21,6 +21,7 @@ func main() {
 	if err != nil {
 		color256.PrintOrange("Error while downloading the id list")
 	}
+	color256.PrintBgHiMagenta("lsusbtty V1.1")
 
 	color256.PrintHiCyan("Found USB-Serial converter")
 	ports, err := enumerator.GetDetailedPortsList()

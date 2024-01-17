@@ -1,7 +1,7 @@
 package usbID
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"regexp"
 	"strings"
@@ -38,7 +38,7 @@ func DownloadList(url string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	content, err := ioutil.ReadAll(resp.Body)
+	content, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}
