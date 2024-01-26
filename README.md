@@ -1,3 +1,6 @@
+Lives now on codeberg: 
+https://codeberg.org/sir_tillorly_of_shitterton/smoltools
+
 # smoltools
 
 Smol tools in go which are to small for their own repo
